@@ -23,10 +23,12 @@ public class LFSR_Encryption {
 			instream = new DataInputStream(new FileInputStream(FRin));
 			outstream = new DataOutputStream(new FileOutputStream(FRout));
 			
-			System.out.print("Please key in the initial value : ");
-			FRin = keyboard.nextLine();
-			System.out.print("Please key in the mask : ");
-			FRout = keyboard.nextLine();
+			do{
+				System.out.print("Please key in the initial value : ");
+				FRin = keyboard.nextLine();
+				System.out.print("Please key in the mask : ");
+				FRout = keyboard.nextLine();
+			}while(FRin.length() != FRout.length());
 			lfsr = new LFSR(FRin, FRout);
 			
 			while(instream.available() > 0){

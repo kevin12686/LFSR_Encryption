@@ -23,12 +23,11 @@ public class LFSR_Encryption {
 			instream = new DataInputStream(new FileInputStream(FRin));
 			outstream = new DataOutputStream(new FileOutputStream(FRout));
 			
-			do{
-				System.out.print("Please key in the initial value : ");
-				FRin = keyboard.nextLine();
-				System.out.print("Please key in the mask : ");
-				FRout = keyboard.nextLine();
-			}while(FRin.length() != FRout.length());
+			System.out.print("Please key in the initial value : ");
+			FRin = keyboard.nextLine();
+			System.out.print("Please key in the mask (Separated by ,) : ");
+			FRout = transform(keyboard.nextLine(), ",", FRin.length());
+
 			lfsr = new LFSR(FRin, FRout);
 			
 			while(instream.available() > 0){
@@ -49,6 +48,18 @@ public class LFSR_Encryption {
 			e.printStackTrace();
 		}
 		keyboard.close();
+	}
+	
+	public static String transform(String input, String symbol, int length){
+		String temp = "";
+		for(int i = 0; i < length; i++){
+			temp += "0";
+		}
+		for(int i = 0; i < input.split(",").length; i++){
+			int j = length - Integer.parseInt(input.split(",")[i]) - 1;
+			temp = temp.substring(0, j) + "1" + temp.substring(j + 1, temp.length());
+		}
+		return temp;
 	}
 	
 }
